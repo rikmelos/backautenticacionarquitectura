@@ -1,0 +1,12 @@
+mongo-db:
+  build: ./db-server
+  ports:
+    - 27017:27017
+  hostname: mongodbhost
+
+app-ms:
+  build: .
+  ports:
+    - "5000:5000"
+  links:
+    - mongo-db
