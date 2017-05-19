@@ -6,8 +6,8 @@
 var mongoose    =   require('mongoose');
 mongoose.Promise = global.Promise;
 
-;
-var userdb = mongoose.createConnection('mongodb://mongodbhost:27017/MDB');
+var userdb = mongoose.connect('mongodb://mongodb:27017/MDB');
+//var userdb = mongoose.createConnection('mongodb://mongodbhost:27017/MDB');
 
 var mongoSchema =   userdb.Schema;
 var userSchema  = {

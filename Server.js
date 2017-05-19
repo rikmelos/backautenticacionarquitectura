@@ -1,8 +1,8 @@
 var express     =   require("express");
 var app         =   express();
 var bodyParser  =   require("body-parser");
-var mongoOp     =   require("./models/mongo");
-var session     =   require("./models/session");
+//var mongoOp     =   require("./models/mongo");
+//var session     =   require("./models/session");
 var jwt         =   require('jsonwebtoken');
 var router      =   express.Router();
 //var mongoose    =   require('mongoose');
@@ -10,6 +10,51 @@ global.config   =   require('./config/config');
 
 var cors = require('cors');
 app.use(cors());
+/*
+var mongoose = require('mongoose')
+var conn = mongoose.createConnection('mongodb://localhost/db1');
+var conn2 = mongoose.createConnection('mongodb://localhost/db2');
+var Schema = new mongoose.Schema({})
+var model1 = conn.model('User', Schema);
+var model2 = conn2.model('Item', Schema);
+model1.find({}, function() {
+    console.log("this will print out last");
+});
+model2.find({}, function() {
+    console.log("this will print out first");
+});
+*/
+
+
+
+var mongoose    =   require('mongoose');
+mongoose.Promise = global.Promise;
+
+//var userdb = mongoose.connect('mongodb://mongodb:27017/MDB');
+var userdb = mongoose.createConnection('mongodb://mongodbhost:27017/MDB1');
+
+var mongoSchema =   userdb.Schema;
+var userSchema  = {
+    "userEmail" : String,
+    "userPassword" : String
+};
+mongoOp =  userdb.model('userLogin',userSchema);
+
+
+
+//var sessiondb = mongoose.connect('mongodb://mongodb:27017/MDB');
+var sessiondb = mongoose.createConnection('mongodb://mongodbhost:27017/MDB2');
+
+var mongoSchemaSess =   sessiondb.Schema;
+var sessionSchema  = {
+    "email" : String,
+    "sessionToken" : String
+};
+
+session = sessiondb.model('userSession',sessionSchema);
+
+
+
 
 //mongoose.connect('mongodb://localhost:27017/demoDb');
 //mongoose.Promise = global.Promise;
